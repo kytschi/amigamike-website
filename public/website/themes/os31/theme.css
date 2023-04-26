@@ -1,0 +1,263 @@
+/* Fonts */
+@font-face {
+    font-family: 'text';
+    src: url('amiga4ever.ttf') format('truetype');
+}
+html, body {
+    color: #020202;
+    font-family: "text", Helvetica, sans-serif;
+    font-size: 10pt;
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    background-color: #aaaaaa;
+}
+#btn-menu {
+    position: relative;
+}
+
+button {
+    font-family: "text", Helvetica, sans-serif;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    text-align: center;
+    border: 0;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+button span {
+    display: block;
+    width: 100%;
+    border-right: 1px solid #000;
+    border-left: 1px solid #fff;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #000;
+}
+button i {
+    display: block;
+    border-left: 1px solid #e0e0e0;
+    border-top: 1px solid #e0e0e0;
+    border-right: 1px solid #797979;
+    border-bottom: 1px solid #797979;
+    padding: 4px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+button strong {
+    display: block;
+    width: 100%;
+    font-weight: normal;
+}
+h1 {
+    font-size: 12pt;
+    font-weight: normal;
+}
+header {
+    padding: 10px 10px;
+    width: 100%;
+    height: 20px;
+    background-color: #fff;
+}
+header h1, header span {
+    float: left;
+    padding: 0;
+    margin: 0;
+    margin-right: 15px;
+    font-size: 10pt;
+}
+header span strong {
+    font-weight: normal;
+}
+.window {
+    position: absolute;
+    display: flex;
+    flex-flow: column wrap;
+    height: 400px;
+    width: 400px;
+    border-right: 1px solid #000;
+    border-left: 1px solid #fff;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #000;
+    z-index: 3;
+}
+
+main {
+    margin-top: 40px;
+    width: 100% !important;
+    height: calc(100% - 40px) !important;
+    z-index: 2;
+}
+
+.window-title {
+    width: 100%;
+    height: 25px;
+    padding: 0;
+    background-color: #aaaaaa;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #000;
+    cursor: pointer;
+}
+.window-body {
+    width: 100%;
+    height: calc(100% - 59px);
+    border-left: 1px solid #e0e0e0;
+    display: flex;
+    overflow: hidden;
+}
+.window-content {
+    margin-left: 2px;
+    width: calc(100% - 58px);
+    height: 100%;
+    border-left: 1px solid #000;
+    background-color: #aaaaaa;
+    padding: 10px;
+    overflow: hidden;
+}
+.window-footer {
+    width: calc(100% - 1px);
+    height: 32px;
+    overflow: hidden;
+    border-left: 1px solid #e0e0e0;
+    background-color: #aaaaaa;
+    overflow: hidden;
+}
+.window-footer-border {
+    margin-left: 4px;
+    width: calc(100% - 37px);
+    float: left;
+    clear: both;
+    border-top: 1px solid #e0e0e0;
+}
+.window.active, .window.active .window-title, .window.active .window-footer, .window.active .window-vert-scroll {
+    background-color: #6788bd !important;
+}
+
+.window-vert-scroll {
+    width: 33px;
+    height: 100%;
+    border-left: 1px solid #fff;
+    background-color: #aaaaaa;
+}
+.window-vert-scroll .scroll-bar, .window-horz-scroll .scroll-bar {    
+    border-left: 1px solid #fff;
+    border-top: 1px solid #fff;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    margin-left: 5px;
+    margin-top: 4px;
+}
+.window-vert-scroll .scroll-bar {
+    width: 22px;
+    height: calc(100% - 56px);
+    cursor: pointer;
+}
+.window-horz-scroll {
+    float: left;
+    height: 30px;
+    width: calc(100% - 5px);
+}
+.window-horz-scroll .scroll-bar {
+    width: calc(100% - 80px);
+    height: 22px;
+    display: block;
+    float: left;
+    cursor: pointer;
+}
+.window-vert-scroll button, .window-horz-scroll button {
+    width: 22px;
+    height: 22px;
+    margin-left: 5px;
+    display: block;
+    font-size: 0;
+}
+.window-vert-scroll button {
+    margin-top: 2px;
+}
+.window-horz-scroll button, .window .window-scroll-resize {
+    margin-top: 4px;
+    float: left;
+}
+.window-horz-scroll button {
+    margin-left: 2px;
+}
+.window-vert-scroll button i, .window-horz-scroll button i, .window .window-scroll-resize i {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+}
+.scroll-bar-up i {
+    background-image: url("scroll-up.png");
+}
+.window.active .scroll-bar-up i {
+    background-image: url("scroll-up-active.png");
+}
+.scroll-bar-down i {
+    background-image: url("scroll-down.png");
+}
+.window.active .scroll-bar-down i {
+    background-image: url("scroll-down-active.png");
+}
+.scroll-bar-left i {
+    background-image: url("scroll-left.png");
+}
+.window.active .scroll-bar-left i {
+    background-image: url("scroll-left-active.png");
+}
+.scroll-bar-right i {
+    background-image: url("scroll-right.png");
+}
+.window.active .scroll-bar-right i {
+    background-image: url("scroll-right-active.png");
+}
+
+.window-title button, .window-title span {
+    float: left;
+    margin-right: 0;
+    border-right: 1px solid #000;
+    border-left: 1px solid #fff;
+    border-bottom: 1px solid #797979;
+}
+.window-title button {
+    width: 25px;
+    height: 25px;
+    background-size: auto;
+}
+.window-title span {
+    padding: 4px 0 0 10px;
+    height: 20px;
+    width: calc(100% - 87px);
+}
+
+.window .window-close {
+    background-image: url("window-close.png");
+}
+.window.active .window-close {
+    background-image: url("window-close-active.png?t=re");
+}
+.window .window-max {
+    background-image: url("window-max.png");
+}
+.window.active .window-max {
+    background-image: url("window-max-active.png?t=re");
+}
+.window .window-index {
+    background-image: url("window-index.png");
+}
+.window.active .window-index {
+    background-image: url("window-index-active.png?t=re");
+}
+.window .window-scroll-resize i {
+    background-image: url("window-resize.png");
+}
+.window.active .window-scroll-resize i {
+    background-image: url("window-resize-active.png");
+}
