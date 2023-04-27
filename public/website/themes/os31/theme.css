@@ -12,6 +12,7 @@ html, body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    cursor: url("cursor.png"), pointer !important;
 }
 body {
     display: flex;
@@ -23,11 +24,10 @@ body {
 #btn-menu {
     position: relative;
 }
-
 button {
     font-family: "text", Helvetica, sans-serif;
     background: none;
-    cursor: pointer;
+    cursor: url("cursor.png"), pointer !important;
     padding: 0;
     text-align: center;
     border: 0;
@@ -36,26 +36,49 @@ button {
 }
 button span {
     display: block;
-    width: 100%;
+    margin: 0 auto;
+    height: 30px;
+    width: 60px;
     border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
     border-left: 1px solid #fff;
     border-top: 1px solid #fff;
-    border-bottom: 1px solid #000;
+}
+#btn-menu span {
+    width: 100px;
 }
 button i {
     display: block;
+    width: 100%;
+    height: 100%;
     border-left: 1px solid #e0e0e0;
     border-top: 1px solid #e0e0e0;
     border-right: 1px solid #797979;
     border-bottom: 1px solid #797979;
-    padding: 4px;
     background-position: center center;
     background-repeat: no-repeat;
+}
+button i img {
+    margin-top: 5px;
+}
+button.open span {
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    border-left: 1px solid #000;
+    border-top: 1px solid #000;
+}
+button.open i {
+    border-left: 1px solid #797979;
+    border-top: 1px solid #797979;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
 }
 button strong {
     display: block;
     width: 100%;
     font-weight: normal;
+    text-align: center;
+    margin-top: 5px;
 }
 h1 {
     font-size: 12pt;
@@ -66,6 +89,7 @@ header {
     width: 100%;
     height: 20px;
     background-color: #fff;
+    z-index: 1000;
 }
 header h1, header span {
     float: left;
@@ -99,124 +123,143 @@ main {
 
 .window-title {
     width: 100%;
-    height: 25px;
+    height: 26px;
     padding: 0;
     background-color: #aaaaaa;
     border-top: 1px solid #fff;
     border-bottom: 1px solid #000;
-    cursor: pointer;
+    cursor: url("cursor.png"), pointer !important;
+}
+.window section {
+    display: flex;
+    height: calc(100% - 29px);
+    border-left: 1px solid #e0e0e0;
+    flex-direction: row;
+    align-items: stretch;
+    border-bottom: 1px solid #000;
 }
 .window-body {
-    width: 100%;
-    height: calc(100% - 59px);
-    border-left: 1px solid #e0e0e0;
-    display: flex;
+    width: calc(100% - 25px);
+    height: 100%;
     overflow: hidden;
 }
 .window-content {
+    float: left;
     margin-left: 2px;
-    width: calc(100% - 58px);
-    height: 100%;
+    width: calc(100% - 44px);
+    height: calc(100% - 66px);
     border-left: 1px solid #000;
+    border-right: 1px solid #fff;
     background-color: #aaaaaa;
-    padding: 10px;
-    overflow: hidden;
+    padding: 20px;
+    clear: both;
+}
+.window-vert-scroll {
+    width: 24px;
+    height: 100%;
+    background-color: #aaaaaa;
+    border-right: 1px solid #000;
+}
+.window-vert-scroll .scroll-bar {
+    width: 13px;
+    height: calc(100% - 92px);
+    cursor: url("cursor.png"), pointer !important;
 }
 .window-footer {
-    width: calc(100% - 1px);
-    height: 32px;
+    float: left;
+    width: calc(100% + 1px);
+    height: 25px;
     overflow: hidden;
+    border-top: 1px solid #e0e0e0;
     border-left: 1px solid #e0e0e0;
     background-color: #aaaaaa;
     overflow: hidden;
-}
-.window-footer-border {
-    margin-left: 4px;
-    width: calc(100% - 37px);
-    float: left;
     clear: both;
-    border-top: 1px solid #e0e0e0;
-}
-.window.active, .window.active .window-title, .window.active .window-footer, .window.active .window-vert-scroll {
-    background-color: #6788bd !important;
 }
 
-.window-vert-scroll {
-    width: 33px;
-    height: 100%;
-    border-left: 1px solid #fff;
-    background-color: #aaaaaa;
-}
 .window-vert-scroll .scroll-bar, .window-horz-scroll .scroll-bar {    
     border-left: 1px solid #fff;
     border-top: 1px solid #fff;
     border-right: 1px solid #000;
     border-bottom: 1px solid #000;
     margin-left: 5px;
-    margin-top: 4px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
-.window-vert-scroll .scroll-bar {
-    width: 22px;
-    height: calc(100% - 56px);
-    cursor: pointer;
-}
+
 .window-horz-scroll {
     float: left;
     height: 30px;
     width: calc(100% - 5px);
 }
 .window-horz-scroll .scroll-bar {
-    width: calc(100% - 80px);
-    height: 22px;
+    width: calc(100% - 64px);
+    height: 13px;
     display: block;
     float: left;
-    cursor: pointer;
+    cursor: url("cursor.png"), pointer !important;
+    margin-right: 5px;
 }
 .window-vert-scroll button, .window-horz-scroll button {
-    width: 22px;
-    height: 22px;
-    margin-left: 5px;
+    width: 25px;
+    height: 25px;
     display: block;
     font-size: 0;
+}
+.window-vert-scroll button span, .window-horz-scroll button span {
+    width: 25px;
+    height: 25px;
 }
 .window-vert-scroll button {
     margin-top: 2px;
 }
-.window-horz-scroll button, .window .window-scroll-resize {
-    margin-top: 4px;
+.window-horz-scroll button {
     float: left;
 }
-.window-horz-scroll button {
-    margin-left: 2px;
+.window-horz-scroll .scroll-bar-left {
+    margin-right: 2px;
 }
 .window-vert-scroll button i, .window-horz-scroll button i, .window .window-scroll-resize i {
-    width: 20px;
-    height: 20px;
+    width: 23px;
+    height: 23px;
     padding: 0;
+}
+.window-vert-scroll .scroll-bar-up span, .window-vert-scroll .scroll-bar-down span, .window .window-scroll-resize span {
+    border-left: 0 !important;
+    border-right: 0 !important;
+}
+.window-horz-scroll button i {
+    border-top: 0 !important;
 }
 .scroll-bar-up i {
     background-image: url("scroll-up.png");
 }
-.window.active .scroll-bar-up i {
+.window.active > section .window-body .window-vert-scroll .scroll-bar-up i {
     background-image: url("scroll-up-active.png");
 }
 .scroll-bar-down i {
     background-image: url("scroll-down.png");
 }
-.window.active .scroll-bar-down i {
+.window.active > section .window-body .window-vert-scroll .scroll-bar-down i {
     background-image: url("scroll-down-active.png");
 }
 .scroll-bar-left i {
     background-image: url("scroll-left.png");
 }
-.window.active .scroll-bar-left i {
+.window.active > section .window-footer .window-horz-scroll .scroll-bar-left i {
     background-image: url("scroll-left-active.png");
 }
 .scroll-bar-right i {
     background-image: url("scroll-right.png");
 }
-.window.active .scroll-bar-right i {
+.window.active > section .window-footer .window-horz-scroll .scroll-bar-right i {
     background-image: url("scroll-right-active.png");
+}
+.window .window-scroll-resize i {
+    background-image: url("window-resize.png");
+}
+.window.active > section .window-body .window-vert-scroll .window-scroll-resize i {
+    background-image: url("window-resize-active.png");
 }
 
 .window-title button, .window-title span {
@@ -227,37 +270,44 @@ main {
     border-bottom: 1px solid #797979;
 }
 .window-title button {
-    width: 25px;
-    height: 25px;
+    width: 26px;
+    height: 26px;
     background-size: auto;
+}
+.window-title button span {
+    width: 26px;
+    height: 26px;
 }
 .window-title span {
     padding: 4px 0 0 10px;
-    height: 20px;
-    width: calc(100% - 87px);
+    height: 21px;
+    width: calc(100% - 90px);
 }
 
 .window .window-close {
     background-image: url("window-close.png");
 }
-.window.active .window-close {
+.window.active > section .window-title > .window-close {
     background-image: url("window-close-active.png?t=re");
 }
 .window .window-max {
     background-image: url("window-max.png");
 }
-.window.active .window-max {
+.window.active > section .window-title > .window-max {
     background-image: url("window-max-active.png?t=re");
 }
 .window .window-index {
     background-image: url("window-index.png");
 }
-.window.active .window-index {
+.window.active > section .window-title > .window-index {
     background-image: url("window-index-active.png?t=re");
 }
-.window .window-scroll-resize i {
-    background-image: url("window-resize.png");
+.window.active > section,
+.window.active > .window-title,
+.window.active > section .window-footer,
+.window.active > section .window-body .window-vert-scroll {
+    background-color: #6788bd;
 }
-.window.active .window-scroll-resize i {
-    background-image: url("window-resize-active.png");
+#window-system {
+    display: none;
 }
