@@ -16,7 +16,7 @@
             <span id="chipram"><strong>1,957,784</strong> Chip-mem</span>
             <span id="otherram"><strong>7,510,420</strong> other mem</span>
         </header>
-        <main class="window active">
+        <main id="workbench" class="window">
             <div class="window-title">
                 <button class="window-close">&nbsp;</button>
                 <span>Workbench</span>
@@ -30,7 +30,7 @@
                             <span><i><img src="<?= $DUMBDOG->site->theme_folder; ?>/system.png"></i></span>
                             <strong>System</strong>
                         </button>
-                        <div id="window-system" class="window active" style="display: block">
+                        <div id="window-system" class="window">
                             <div class="window-title">
                                 <button class="window-close">&nbsp;</button>
                                 <span>System</span>
@@ -81,7 +81,7 @@
                     <div class="scroll-bar"></div>
                     <button class="scroll-bar-up"><span><i>&nbsp;</i></span></button>
                     <button class="scroll-bar-down"><span><i>&nbsp;</i></span></button>
-                    <button class="window-scroll-resize"><span><i>&nbsp;</i></span></button>
+                    <button id="workbench-resize" class="window-scroll-resize"><span><i>&nbsp;</i></span></button>
                 </div>
             </section>
         </main>
@@ -92,29 +92,32 @@
                 <button class="window-max">&nbsp;</button>
                 <button class="window-index">&nbsp;</button>
             </div>
-            <div class="window-body">
-                <div class="window-content"></div>
+            <section>
+                <div class="window-body">
+                    <div class="window-content"></div>
+                    <div class="window-footer">
+                        <div class="window-horz-scroll">
+                            <div class="scroll-bar"></div>
+                            <button class="scroll-bar-left"><span><i>&nbsp;</i></span></button>
+                            <button class="scroll-bar-right"><span><i>&nbsp;</i></span></button>
+                        </div>                            
+                    </div>
+                </div>
                 <div class="window-vert-scroll">
                     <div class="scroll-bar"></div>
                     <button class="scroll-bar-up"><span><i>&nbsp;</i></span></button>
                     <button class="scroll-bar-down"><span><i>&nbsp;</i></span></button>
-                </div>
-            </div>
-            <div class="window-footer">
-                <div class="window-footer-border"></div>
-                <div class="window-horz-scroll">
-                    <div class="scroll-bar"></div>
-                    <button class="scroll-bar-left"><span><i>&nbsp;</i></span></button>
-                    <button class="scroll-bar-right"><span><i>&nbsp;</i></span></button>
                     <button class="window-scroll-resize"><span><i>&nbsp;</i></span></button>
-                </div>                            
-            </div>
+                </div>
+            </section>
         </div>
     </body>
     <script type="text/javascript">
         var windows = [
+            "workbench",
             "window-system"
         ];
+        var theme = "<?= $DUMBDOG->site->theme_folder; ?>";
             
         function setBinds() {
             $(".window-close").bind("click", function() {
@@ -144,10 +147,20 @@
                 target.css("z-index", parseInt(target.css("z-index")) + 1);
             }
             target.addClass("active");
+            $(".window-scroll-resize i").removeClass("active");
+    
+            windows.forEach(function (window) {
+                if (target.attr("id") != window) {
+                    $("#" + window + " .window-scroll-resize i").removeClass("active");
+                } else {
+                    $("#" + target.attr("id") + " .window-scroll-resize i").addClass("active");
+                }
+            });
         }
 
         $(function() {
             setBinds();
+            windowToTop($("main"));
             
             $("button[data-window]").dblclick(function() {
                 $(this).addClass("open");

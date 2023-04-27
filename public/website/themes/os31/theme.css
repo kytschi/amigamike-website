@@ -232,34 +232,22 @@ main {
     border-top: 0 !important;
 }
 .scroll-bar-up i {
-    background-image: url("scroll-up.png");
-}
-.window.active > section .window-body .window-vert-scroll .scroll-bar-up i {
-    background-image: url("scroll-up-active.png");
+    background-image: url("scroll-up.png?t=333s");
 }
 .scroll-bar-down i {
-    background-image: url("scroll-down.png");
-}
-.window.active > section .window-body .window-vert-scroll .scroll-bar-down i {
-    background-image: url("scroll-down-active.png");
+    background-image: url("scroll-down.png?t=333s");
 }
 .scroll-bar-left i {
-    background-image: url("scroll-left.png");
-}
-.window.active > section .window-footer .window-horz-scroll .scroll-bar-left i {
-    background-image: url("scroll-left-active.png");
+    background-image: url("scroll-left.png?t=333s");
 }
 .scroll-bar-right i {
-    background-image: url("scroll-right.png");
-}
-.window.active > section .window-footer .window-horz-scroll .scroll-bar-right i {
-    background-image: url("scroll-right-active.png");
+    background-image: url("scroll-right.png?t=333s");
 }
 .window .window-scroll-resize i {
-    background-image: url("window-resize.png");
+    background-image: url("window-resize.png?t=333s");
 }
-.window.active > section .window-body .window-vert-scroll .window-scroll-resize i {
-    background-image: url("window-resize-active.png");
+.window .window-scroll-resize i.active {
+    background-image: url("window-resize-active.png?t=333s");
 }
 
 .window-title button, .window-title span {
@@ -274,38 +262,33 @@ main {
     height: 26px;
     background-size: auto;
 }
-.window-title button span {
-    width: 26px;
-    height: 26px;
-}
 .window-title span {
     padding: 4px 0 0 10px;
     height: 21px;
     width: calc(100% - 90px);
 }
-
 .window .window-close {
     background-image: url("window-close.png");
 }
-.window.active > section .window-title > .window-close {
+.window.active > .window-title .window-close {
     background-image: url("window-close-active.png?t=re");
 }
 .window .window-max {
     background-image: url("window-max.png");
 }
-.window.active > section .window-title > .window-max {
+.window.active > .window-title .window-max {
     background-image: url("window-max-active.png?t=re");
 }
 .window .window-index {
     background-image: url("window-index.png");
 }
-.window.active > section .window-title > .window-index {
+.window.active > .window-title .window-index {
     background-image: url("window-index-active.png?t=re");
 }
 .window.active > section,
 .window.active > .window-title,
-.window.active > section .window-footer,
-.window.active > section .window-body .window-vert-scroll {
+.window.active > section > .window-body > .window-footer,
+.window.active > section > .window-vert-scroll {
     background-color: #6788bd;
 }
 #window-system {
