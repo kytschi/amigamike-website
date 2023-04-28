@@ -105,6 +105,8 @@ header span strong {
     position: absolute;
     display: flex;
     flex-flow: column wrap;
+    min-height: 200px;
+    min-width: 200px;
     height: 400px;
     width: 400px;
     border-right: 1px solid #000;
@@ -115,7 +117,7 @@ header span strong {
 }
 
 main {
-    margin-top: 40px;
+    top: 40px;
     width: 100% !important;
     height: calc(100% - 40px) !important;
     z-index: 2;
@@ -146,13 +148,17 @@ main {
 .window-content {
     float: left;
     margin-left: 2px;
-    width: calc(100% - 44px);
-    height: calc(100% - 66px);
+    width: calc(100% - 4px);
+    height: calc(100% - 26px);
     border-left: 1px solid #000;
     border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
     background-color: #aaaaaa;
-    padding: 20px;
+    overflow: hidden;
     clear: both;
+}
+.window-content .window-output {
+    padding: 20px;
 }
 .window-vert-scroll {
     width: 24px;
@@ -170,8 +176,6 @@ main {
     width: calc(100% + 1px);
     height: 25px;
     overflow: hidden;
-    border-top: 1px solid #e0e0e0;
-    border-left: 1px solid #e0e0e0;
     background-color: #aaaaaa;
     overflow: hidden;
     clear: both;
@@ -261,29 +265,30 @@ main {
     width: 26px;
     height: 26px;
     background-size: auto;
+    background-size: 16px 16px;
 }
 .window-title span {
-    padding: 4px 0 0 10px;
-    height: 21px;
+    padding: 5px 0 0 10px;
+    height: 20px;
     width: calc(100% - 90px);
 }
 .window .window-close {
-    background-image: url("window-close.png");
+    background-image: url("window-close.png?t=re");
 }
 .window.active > .window-title .window-close {
-    background-image: url("window-close-active.png?t=re");
+    background-image: url("window-close-active.png?t=ress");
 }
 .window .window-max {
-    background-image: url("window-max.png");
+    background-image: url("window-max.png?t=r");
 }
 .window.active > .window-title .window-max {
-    background-image: url("window-max-active.png?t=re");
+    background-image: url("window-max-active.png?t=res");
 }
 .window .window-index {
-    background-image: url("window-index.png");
+    background-image: url("window-index.png?t=isssss");
 }
 .window.active > .window-title .window-index {
-    background-image: url("window-index-active.png?t=re");
+    background-image: url("window-index-active.png?t=res");
 }
 .window.active > section,
 .window.active > .window-title,
@@ -293,4 +298,22 @@ main {
 }
 #window-system {
     display: none;
+}
+
+.window.shell {
+    width: 600px;
+}
+.window.shell .window-footer {
+    height: 2px;
+    line-height: 0;
+}
+.window.shell .window-footer .window-horz-scroll {
+    display: none;
+}
+
+.window.shell .window-content {
+    height: calc(100% - 3px);
+}
+.window.shell .window-content .window-output {
+    padding:7px 5px;
 }
