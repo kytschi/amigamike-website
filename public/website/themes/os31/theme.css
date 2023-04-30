@@ -21,7 +21,7 @@ body {
     width: 100%;
     background-color: #aaaaaa;
 }
-#btn-menu {
+#btn-system, #btn-contact {
     position: relative;
 }
 button {
@@ -34,20 +34,24 @@ button {
     background-position: center center;
     background-repeat: no-repeat;
 }
-button span {
+button label {
     display: block;
     margin: 0 auto;
-    height: 30px;
+    height: 35px;
     width: 60px;
     border-right: 1px solid #000;
     border-bottom: 1px solid #000;
     border-left: 1px solid #fff;
     border-top: 1px solid #fff;
+    cursor: url("cursor.png"), pointer !important;
 }
-#btn-menu span {
+#btn-system label  {
     width: 100px;
 }
-button i {
+#btn-contact label  {
+    height: 40px;
+}
+button span {
     display: block;
     width: 100%;
     height: 100%;
@@ -57,21 +61,28 @@ button i {
     border-bottom: 1px solid #797979;
     background-position: center center;
     background-repeat: no-repeat;
+    background-image: url("folder-close.png");
+    cursor: url("cursor.png"), pointer !important;
 }
-button i img {
+button span i {
+    font-style: normal;
+    cursor: url("cursor.png"), pointer !important;
+}
+button span img {
     margin-top: 5px;
 }
-button.open span {
+button.open label {
     border-right: 1px solid #fff;
     border-bottom: 1px solid #fff;
     border-left: 1px solid #000;
     border-top: 1px solid #000;
 }
-button.open i {
+button.open span {
     border-left: 1px solid #797979;
     border-top: 1px solid #797979;
     border-right: 1px solid #e0e0e0;
     border-bottom: 1px solid #e0e0e0;
+    background-image: url("folder-open.png");
 }
 button strong {
     display: block;
@@ -79,6 +90,37 @@ button strong {
     font-weight: normal;
     text-align: center;
     margin-top: 5px;
+}
+button.text-button label {
+    width: 80px;
+    height: 45px;
+}
+button.text-button span {
+    background: none !important;
+}
+button.text-button i {
+    display: block;
+    width: 100%;
+    padding-top: 15px;
+}
+#btn-contact span {
+    background-image: url("floppy-closed.png");
+}
+#btn-system span {
+    background-image: url("system.png");
+}
+.form-input {
+    float: left;
+    width: 100%;
+    padding-bottom: 15px;
+}
+.form-input input, .form-input label, .form-input textarea {
+    float: left;
+    width: 100%;
+    resize: none;
+}
+.form-input label {
+    margin-bottom: 5px;
 }
 h1 {
     font-size: 12pt;
@@ -101,7 +143,10 @@ header h1, header span {
 header span strong {
     font-weight: normal;
 }
-.window {
+.required {
+    color: #FF0000;
+}
+.window, .popup {
     position: absolute;
     display: flex;
     flex-flow: column wrap;
@@ -115,14 +160,66 @@ header span strong {
     border-bottom: 1px solid #000;
     z-index: 3;
 }
+.popup {
+    min-height: 100px;
+    min-width: 250px;
+    height: auto;
+    width: 500px;
+    z-index: 1000;
+    background-image: url("popup-bkup.jpg");
+    display: none;
+}
+#guru {
+    background-color: #000;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1005;
+    display: none;
+}
 
+@-webkit-keyframes guruBlink {    
+    from, to {    
+        border-color: transparent    
+    }    
+    50% {    
+        border-color: #FF0000    
+    }    
+}    
+@keyframes guruBlink {    
+    from, to {    
+        border-color: transparent    
+    }    
+    50% {    
+        border-color: #FF0000    
+    }    
+}
+#guru section {
+    width: 100% - 40px;
+    margin: 20px;
+    border:5px solid #FF0000;
+    color: #FF0000;
+    text-align: center;
+    -webkit-animation: guruBlink 1s step-end infinite;    
+    animation: guruBlink 1s step-end infinite;    
+}
 main {
     top: 40px;
     width: 100% !important;
     height: calc(100% - 40px) !important;
     z-index: 2;
 }
-
+main #buttons {
+    display: flex;
+    align-items: flex-start;
+    justify-content: left;
+    flex-direction: column;
+}
+main #buttons button {
+    margin-bottom: 20px;
+}
 .window-title {
     width: 100%;
     height: 26px;
@@ -132,18 +229,30 @@ main {
     border-bottom: 1px solid #000;
     cursor: url("cursor.png"), pointer !important;
 }
-.window section {
+.window section, .popup section {
     display: flex;
     height: calc(100% - 29px);
+}
+.window section {
     border-left: 1px solid #e0e0e0;
     flex-direction: row;
     align-items: stretch;
     border-bottom: 1px solid #000;
 }
+.popup section {
+    align-items: flex-start;
+    justify-content: left;
+    flex-direction: column;
+}
 .window-body {
     width: calc(100% - 25px);
     height: 100%;
     overflow: hidden;
+}
+.popup .window-body {
+    margin-top: 20px;
+    margin-left: 20px;
+    width: calc(100% - 45px);
 }
 .window-content {
     float: left;
@@ -157,7 +266,12 @@ main {
     overflow: hidden;
     clear: both;
 }
+.popup .window-content {
+    border-top: 1px solid #000;
+    height: 100%;
+}
 .window-content .window-output {
+    position: relative;
     padding: 20px;
 }
 .window-vert-scroll {
@@ -180,7 +294,13 @@ main {
     overflow: hidden;
     clear: both;
 }
-
+.popup .window-footer {
+    height: auto;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    text-align: center;
+    background: none;
+}
 .window-vert-scroll .scroll-bar, .window-horz-scroll .scroll-bar {    
     border-left: 1px solid #fff;
     border-top: 1px solid #fff;
@@ -190,7 +310,6 @@ main {
     margin-top: 5px;
     margin-bottom: 5px;
 }
-
 .window-horz-scroll {
     float: left;
     height: 30px;
@@ -210,7 +329,7 @@ main {
     display: block;
     font-size: 0;
 }
-.window-vert-scroll button span, .window-horz-scroll button span {
+.window-vert-scroll button label, .window-horz-scroll button label {
     width: 25px;
     height: 25px;
 }
@@ -223,37 +342,36 @@ main {
 .window-horz-scroll .scroll-bar-left {
     margin-right: 2px;
 }
-.window-vert-scroll button i, .window-horz-scroll button i, .window .window-scroll-resize i {
+.window-vert-scroll button span, .window-horz-scroll button span, .window .window-scroll-resize span {
     width: 23px;
     height: 23px;
     padding: 0;
 }
-.window-vert-scroll .scroll-bar-up span, .window-vert-scroll .scroll-bar-down span, .window .window-scroll-resize span {
+.window-vert-scroll .scroll-bar-up label, .window-vert-scroll .scroll-bar-down label, .window .window-scroll-resize label {
     border-left: 0 !important;
     border-right: 0 !important;
 }
-.window-horz-scroll button i {
+.window-horz-scroll button span {
     border-top: 0 !important;
 }
-.scroll-bar-up i {
+.scroll-bar-up span {
     background-image: url("scroll-up.png?t=333s");
 }
-.scroll-bar-down i {
+.scroll-bar-down span {
     background-image: url("scroll-down.png?t=333s");
 }
-.scroll-bar-left i {
+.scroll-bar-left span {
     background-image: url("scroll-left.png?t=333s");
 }
-.scroll-bar-right i {
+.scroll-bar-right span {
     background-image: url("scroll-right.png?t=333s");
 }
-.window .window-scroll-resize i {
+.window .window-scroll-resize span {
     background-image: url("window-resize.png?t=333s");
 }
-.window .window-scroll-resize i.active {
+.window .window-scroll-resize span.active {
     background-image: url("window-resize-active.png?t=333s");
 }
-
 .window-title button, .window-title span {
     float: left;
     margin-right: 0;
@@ -272,26 +390,29 @@ main {
     height: 20px;
     width: calc(100% - 90px);
 }
-.window .window-close {
+.popup .window-title span {
+    width: calc(100% - 38px);
+}
+.window-close {
     background-image: url("window-close.png?t=re");
 }
-.window.active > .window-title .window-close {
+.active > .window-title .window-close {
     background-image: url("window-close-active.png?t=ress");
 }
-.window .window-max {
+.window-max {
     background-image: url("window-max.png?t=r");
 }
-.window.active > .window-title .window-max {
+.active > .window-title .window-max {
     background-image: url("window-max-active.png?t=res");
 }
-.window .window-index {
+.window-index {
     background-image: url("window-index.png?t=isssss");
 }
-.window.active > .window-title .window-index {
+.active > .window-title .window-index {
     background-image: url("window-index-active.png?t=res");
 }
 .window.active > section,
-.window.active > .window-title,
+.active > .window-title,
 .window.active > section > .window-body > .window-footer,
 .window.active > section > .window-vert-scroll {
     background-color: #6788bd;

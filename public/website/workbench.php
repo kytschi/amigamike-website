@@ -28,10 +28,78 @@
                 <div class="window-body">
                     <div class="window-content">
                         <div class="window-output">
-                            <button id="btn-menu" data-window="window-system" data-api="system">
-                                <span><i><img src="<?= $DUMBDOG->site->theme_folder; ?>/system.png"></i></span>
-                                <strong>System</strong>
-                            </button>
+                            <div id="buttons">
+                                <button id="btn-contact" data-window="window-contact" data-api="contact">
+                                    <label><span>&nbsp;</span></label>
+                                    <strong>Contact</strong>
+                                </button>
+                                <button id="btn-system" data-window="window-system" data-api="system">
+                                    <label><span>&nbsp;</span></label>
+                                    <strong>System</strong>
+                                </button>
+                            </div>
+                            <div
+                                id="window-contact" 
+                                class="window shell" 
+                                data-api="contact" 
+                                style="display: none; width: 500px;height: 520px;">
+                                <div class="window-title">
+                                    <button class="window-close">&nbsp;</button>
+                                    <span>Contact</span>
+                                    <button class="window-max">&nbsp;</button>
+                                    <button class="window-index">&nbsp;</button>
+                                </div>
+                                <section>
+                                    <div class="window-body">
+                                        <div class="window-content">
+                                            <div class="window-output">
+                                                <div id="form-contact" style="float:left;width:calc(100% - 20px);overflow:hidden;padding:5px 5px;">
+                                                    <div class="form-input">
+                                                        <label>Your name<span class="required">*</span></label>
+                                                        <input type="text" name="name" required="required"/>
+                                                    </div>
+                                                    <div class="form-input">
+                                                        <label>Your email<span class="required">*</span></label>
+                                                        <input type="email" name="email" required="required"/>
+                                                    </div>
+                                                    <div class="form-input">
+                                                        <label>Your message<span class="required">*</span></label>
+                                                        <textarea rows="4" name="message" required="required"></textarea>
+                                                    </div>
+                                                    <div class="form-input">
+                                                        <label>Captcha<span class="required">*</span></label>
+                                                        <?= $DUMBDOG->captcha->draw(); ?>
+                                                    </div>
+                                                    <p>Required fields<span class="required">*</span></p>
+                                                    <div class="form-input">
+                                                        <button
+                                                            id="btn-contact-send"
+                                                            type="button"
+                                                            name="send"
+                                                            class="text-button"
+                                                            data-api="/contact">
+                                                            <label><span><i>Send</i></span></label>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="window-footer">
+                                            <div class="window-horz-scroll">
+                                                <div class="scroll-bar"></div>
+                                                <button class="scroll-bar-left"><label><span>&nbsp;</span></label></button>
+                                                <button class="scroll-bar-right"><label><span>&nbsp;</span></label></button>
+                                            </div>                            
+                                        </div>
+                                    </div>
+                                    <div class="window-vert-scroll">
+                                        <div class="scroll-bar"></div>
+                                        <button class="scroll-bar-up"><span><i>&nbsp;</i></span></button>
+                                        <button class="scroll-bar-down"><span><i>&nbsp;</i></span></button>
+                                        <button class="window-scroll-resize"><label><span>&nbsp;</span></label></button>
+                                    </div>
+                                </section>
+                            </div>
                             <div id="window-system" class="window" data-api="system">
                                 <div class="window-title">
                                     <button class="window-close">&nbsp;</button>
@@ -46,8 +114,8 @@
                                             <?php
                                             foreach ($DUMBDOG->menu->header as $item) {
                                                 ?>
-                                                <button data-api="<?= $item->url; ?>" data-window="window-<?= str_replace(" ", "-", $item->name); ?>">
-                                                    <span><i><img src="<?= $DUMBDOG->site->theme_folder; ?>/folder-close.png?t=<?= time(); ?>"></i></span>
+                                                <button class="folder" data-api="<?= $item->url; ?>" data-window="window-<?= str_replace(" ", "-", $item->name); ?>">
+                                                    <label><span>&nbsp;</span></label>
                                                     <strong><?= ucwords($item->name); ?></strong>
                                                 </button>
                                                 <?php
@@ -58,8 +126,8 @@
                                         <div class="window-footer">
                                             <div class="window-horz-scroll">
                                                 <div class="scroll-bar"></div>
-                                                <button class="scroll-bar-left"><span><i>&nbsp;</i></span></button>
-                                                <button class="scroll-bar-right"><span><i>&nbsp;</i></span></button>
+                                                <button class="scroll-bar-left"><label><span>&nbsp;</span></label></button>
+                                                <button class="scroll-bar-right"><label><span>&nbsp;</span></label></button>
                                             </div>                            
                                         </div>
                                     </div>
@@ -67,7 +135,7 @@
                                         <div class="scroll-bar"></div>
                                         <button class="scroll-bar-up"><span><i>&nbsp;</i></span></button>
                                         <button class="scroll-bar-down"><span><i>&nbsp;</i></span></button>
-                                        <button class="window-scroll-resize"><span><i>&nbsp;</i></span></button>
+                                        <button class="window-scroll-resize"><label><span>&nbsp;</span></label></button>
                                     </div>
                                 </section>
                             </div>
@@ -77,8 +145,8 @@
                         <div class="window-footer-border"></div>
                         <div class="window-horz-scroll">
                             <div class="scroll-bar"></div>
-                            <button class="scroll-bar-left"><span><i>&nbsp;</i></span></button>
-                            <button class="scroll-bar-right"><span><i>&nbsp;</i></span></button>                    
+                            <button class="scroll-bar-left"><label><span>&nbsp;</span></label></button>
+                            <button class="scroll-bar-right"><label><span>&nbsp;</span></label></button>                    
                         </div>
                     </div>
                 </div>
@@ -90,7 +158,30 @@
                 </div>
             </section>
         </main>
-        <div id="test" style="border: 1px solid #000; width: 500px; height: 500px">jump</div>
+        <div id="popup" class="popup active">
+            <div class="window-title">
+                <span>System</span>
+                <button class="window-index">&nbsp;</button>
+            </div>
+            <section>
+                <div class="window-body">
+                    <div class="window-content">
+                        <div class="window-output"></div>
+                    </div>
+                </div>
+                <div class="window-footer">
+                    <button type="button" class="text-button">
+                        <label><span><i>Ok</i></span></label>
+                    </button>
+                </div>
+            </section>
+        </div>
+        <div id="guru">
+            <section>
+                <p>Software Failure, Press left mouse button to continue.</p>
+                <p>Guru Meditation #B00B1E55, <span></span></p>
+            </section>
+        </div>
         <div id="window-template" class="window shell" style="display: none">
             <div class="window-title">
                 <button class="window-close">&nbsp;</button>
@@ -106,8 +197,8 @@
                     <div class="window-footer">
                         <div class="window-horz-scroll">
                             <div class="scroll-bar"></div>
-                            <button class="scroll-bar-left"><span><i>&nbsp;</i></span></button>
-                            <button class="scroll-bar-right"><span><i>&nbsp;</i></span></button>
+                            <button class="scroll-bar-left"><label><span>&nbsp;</span></label></button>
+                            <button class="scroll-bar-right"><label><span>&nbsp;</span></label></button>
                         </div>                            
                     </div>
                 </div>
@@ -115,7 +206,7 @@
                     <div class="scroll-bar"></div>
                     <button class="scroll-bar-up"><span><i>&nbsp;</i></span></button>
                     <button class="scroll-bar-down"><span><i>&nbsp;</i></span></button>
-                    <button class="window-scroll-resize"><span><i>&nbsp;</i></span></button>
+                    <button class="window-scroll-resize"><label><span>&nbsp;</span></label></button>
                 </div>
             </section>
         </div>
@@ -126,6 +217,7 @@
             "window-system"
         ];
         var theme = "<?= $DUMBDOG->site->theme_folder; ?>";
+        var scroll = null;
             
         function setBinds() {
             $(".window-close").bind("click", function() {
@@ -177,15 +269,36 @@
             }).resizable({
                 handle: ".window-scroll-resize"
             });
-            $(".scroll-bar-down").bind("click", function () {
-                console.log($(this).parent().parent().children(".window-content"));
-                $(this).parent().parent().children(".window-content").scrollTop({top:"+=5px"}, 800);
+            $(".popup").draggable({
+                handle: ".window-title"
             });
-            $(".scroll-bar-up").bind("click", function () {
-                console.log($(this).parent().parent().children(".window-content"));
-                $(this).parent().parent().children(".window-content").scrollTop({top:"-=5px"}, 800);
+            $(".scroll-bar-down").bind("mousedown", function () {
+                var window = "#" + $(this).parent().parent().parent().attr("id");
+                scroll = setInterval(() => {
+                    $(window + " .window-output").offset({
+                        top: $(window + " .window-output").offset().top - 10
+                    });
+                }, 100);
+            });
+            $(".scroll-bar-up").bind("mousedown", function () {
+                var window = "#" + $(this).parent().parent().parent().attr("id");
+                scroll = setInterval(() => {
+                    $(window + " .window-output").offset({
+                        top: $(window + " .window-output").offset().top + 10
+                    });
+                }, 100);
+            });
+            $(".scroll-bar-down, .scroll-bar-up").bind("mouseup", () => {
+                clearInterval(scroll);
             });
         }
+
+        $("#popup button").click(function () {
+            $(this).parent().parent().parent().hide();
+        });
+        $("#guru").click(function () {
+            $(this).hide();
+        });
 
         function windowToTop(target) {
             var top_index = (windows.length + 4);
@@ -246,6 +359,48 @@
                         }
                     );
                 }
+            });
+
+            $("#btn-contact-send").click(function() {
+                var valid = true;
+                $("#form-contact input[required], #form-contact textarea[required]").each(function(key, item) {
+                    if (!item.value) {
+                        valid = false;
+                        return;
+                    }
+                });
+
+                if (!valid) {
+                    $("#guru span").html("Missing required fields");
+                    $("#guru").show();
+                    return;
+                }
+
+                $.ajax(
+                    {
+                        method: "POST",
+                        url :$(this).data("api"),
+                        data: {
+                        name: $("#form-contact input[name=name]").val(),
+                        email: $("#form-contact input[name=email]").val(),
+                        message: $("#form-contact text[name=message]").val(),
+                        captcha: $("#form-contact input[name=captcha]").val()
+                        }
+                    }
+                ).done(function(data) {
+                        if (data.error) {
+                            $("#guru span").html(data.message);
+                            $("#guru").show();
+                            return;
+                        }
+                        
+                        $("#popup .window-title span").html("Thank you");
+                        $("#popup .window-output").html(data.message);
+                        $("#popup").show();
+                }).fail(function(data) {
+                    $("#guru span").html("An error has an occurred");
+                    $("#guru").show();
+                });
             });
         });
     </script>
