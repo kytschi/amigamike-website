@@ -1,3 +1,12 @@
+<?php
+$window_url = !empty($_GET['window']) ? urldecode($_GET['window']) : '';
+$window = '';
+switch ($window_url) {
+    case "/contact":
+        $window = "#window-contact";
+        break;
+}
+?>
 <!DOCTYPE html>
 <html lang='en'>
     <head>
@@ -16,24 +25,33 @@
             <h1><?= $DUMBDOG->site->name; ?>'s Workbench</h1>
             <span id="chipram"><strong>1,957,784</strong> Chip-mem</span>
             <span id="otherram"><strong>7,510,420</strong> other mem</span>
+            <a href="https://dumb-dog.kytschi.com" target="_blank">powered by dumb dog</a>
         </header>
         <main id="workbench" class="window">
             <div class="window-title">
-                <button class="window-close" disabled="disabled">&nbsp;</button>
+                <button class="button window-close" disabled="disabled">&nbsp;</button>
                 <span>Workbench</span>
-                <button class="window-max">&nbsp;</button>
-                <button class="window-index">&nbsp;</button>
+                <button class="button window-max">&nbsp;</button>
+                <button class="button window-index">&nbsp;</button>
             </div>
             <section>
                 <div class="window-body">
                     <div class="window-content">
                         <div class="window-output">
                             <div id="buttons">
-                                <button id="btn-contact" data-window="window-contact" data-api="contact">
+                                <button id="btn-contact" class="button floppy" data-window="window-contact" data-api="contact">
                                     <label><span>&nbsp;</span></label>
                                     <strong>Contact</strong>
                                 </button>
-                                <button id="btn-system" data-window="window-system" data-api="system">
+                                <a href="https://soundcloud.com/trekster" class="button floppy" target="_blank">
+                                    <label><span>&nbsp;</span></label>
+                                    <strong>Music</strong>
+                                </a>
+                                <a href="https://kytschi.com" class="button floppy" target="_blank">
+                                    <label><span>&nbsp;</span></label>
+                                    <strong>Portfolio</strong>
+                                </a>
+                                <button id="btn-system" class="button" data-window="window-system" data-api="system">
                                     <label><span>&nbsp;</span></label>
                                     <strong>System</strong>
                                 </button>
@@ -44,10 +62,10 @@
                                 data-api="contact" 
                                 style="display: none; width: 500px;height: 520px;">
                                 <div class="window-title">
-                                    <button class="window-close">&nbsp;</button>
+                                    <button class="button window-close">&nbsp;</button>
                                     <span>Contact</span>
-                                    <button class="window-max">&nbsp;</button>
-                                    <button class="window-index">&nbsp;</button>
+                                    <button class="button window-max">&nbsp;</button>
+                                    <button class="button window-index">&nbsp;</button>
                                 </div>
                                 <section>
                                     <div class="window-body">
@@ -76,7 +94,7 @@
                                                             id="btn-contact-send"
                                                             type="button"
                                                             name="send"
-                                                            class="text-button"
+                                                            class="button text-button"
                                                             data-api="/contact">
                                                             <label><span><i>Send</i></span></label>
                                                         </button>
@@ -87,55 +105,55 @@
                                         <div class="window-footer">
                                             <div class="window-horz-scroll">
                                                 <div class="scroll-bar"></div>
-                                                <button class="scroll-bar-left"><label><span>&nbsp;</span></label></button>
-                                                <button class="scroll-bar-right"><label><span>&nbsp;</span></label></button>
+                                                <button class="button scroll-bar-left"><label><span>&nbsp;</span></label></button>
+                                                <button class="button scroll-bar-right"><label><span>&nbsp;</span></label></button>
                                             </div>                            
                                         </div>
                                     </div>
                                     <div class="window-vert-scroll">
                                         <div class="scroll-bar"></div>
-                                        <button class="scroll-bar-up"><span><i>&nbsp;</i></span></button>
-                                        <button class="scroll-bar-down"><span><i>&nbsp;</i></span></button>
-                                        <button class="window-scroll-resize"><label><span>&nbsp;</span></label></button>
+                                        <button class="button scroll-bar-up"><span><i>&nbsp;</i></span></button>
+                                        <button class="button scroll-bar-down"><span><i>&nbsp;</i></span></button>
+                                        <button class="button window-scroll-resize"><label><span>&nbsp;</span></label></button>
                                     </div>
                                 </section>
                             </div>
                             <div id="window-system" class="window" data-api="system">
                                 <div class="window-title">
-                                    <button class="window-close">&nbsp;</button>
+                                    <button class="button window-close">&nbsp;</button>
                                     <span>System</span>
-                                    <button class="window-max">&nbsp;</button>
-                                    <button class="window-index">&nbsp;</button>
+                                    <button class="button window-max">&nbsp;</button>
+                                    <button class="button window-index">&nbsp;</button>
                                 </div>
                                 <section>
                                     <div class="window-body">
                                         <div class="window-content">
                                             <div class="window-output">
-                                            <?php
-                                            foreach ($DUMBDOG->menu->header as $item) {
-                                                ?>
-                                                <button class="folder" data-api="<?= $item->url; ?>" data-window="window-<?= str_replace(" ", "-", $item->name); ?>">
-                                                    <label><span>&nbsp;</span></label>
-                                                    <strong><?= ucwords($item->name); ?></strong>
-                                                </button>
                                                 <?php
-                                            }
-                                            ?>
+                                                foreach ($DUMBDOG->menu->header as $item) {
+                                                    ?>
+                                                    <button class="button folder" data-api="<?= $item->url; ?>" data-window="window-<?= str_replace(" ", "-", $item->name); ?>">
+                                                        <label><span>&nbsp;</span></label>
+                                                        <strong><?= ucwords($item->name); ?></strong>
+                                                    </button>
+                                                    <?php
+                                                }
+                                                ?>
                                             </div>
                                         </div>
                                         <div class="window-footer">
                                             <div class="window-horz-scroll">
                                                 <div class="scroll-bar"></div>
-                                                <button class="scroll-bar-left"><label><span>&nbsp;</span></label></button>
-                                                <button class="scroll-bar-right"><label><span>&nbsp;</span></label></button>
+                                                <button class="button scroll-bar-left"><label><span>&nbsp;</span></label></button>
+                                                <button class="button scroll-bar-right"><label><span>&nbsp;</span></label></button>
                                             </div>                            
                                         </div>
                                     </div>
                                     <div class="window-vert-scroll">
                                         <div class="scroll-bar"></div>
-                                        <button class="scroll-bar-up"><span><i>&nbsp;</i></span></button>
-                                        <button class="scroll-bar-down"><span><i>&nbsp;</i></span></button>
-                                        <button class="window-scroll-resize"><label><span>&nbsp;</span></label></button>
+                                        <button class="button scroll-bar-up"><span><i>&nbsp;</i></span></button>
+                                        <button class="button scroll-bar-down"><span><i>&nbsp;</i></span></button>
+                                        <button class="button window-scroll-resize"><label><span>&nbsp;</span></label></button>
                                     </div>
                                 </section>
                             </div>
@@ -145,16 +163,16 @@
                         <div class="window-footer-border"></div>
                         <div class="window-horz-scroll">
                             <div class="scroll-bar"></div>
-                            <button class="scroll-bar-left"><label><span>&nbsp;</span></label></button>
-                            <button class="scroll-bar-right"><label><span>&nbsp;</span></label></button>                    
+                            <button class="button scroll-bar-left"><label><span>&nbsp;</span></label></button>
+                            <button class="button scroll-bar-right"><label><span>&nbsp;</span></label></button>                    
                         </div>
                     </div>
                 </div>
                 <div class="window-vert-scroll">
                     <div class="scroll-bar"></div>
-                    <button class="scroll-bar-up"><span><i>&nbsp;</i></span></button>
-                    <button class="scroll-bar-down"><span><i>&nbsp;</i></span></button>
-                    <button id="workbench-resize" class="window-scroll-resize"><span><i>&nbsp;</i></span></button>
+                    <button class="button scroll-bar-up"><span><i>&nbsp;</i></span></button>
+                    <button class="button scroll-bar-down"><span><i>&nbsp;</i></span></button>
+                    <button id="workbench-resize" class="button window-scroll-resize"><span><i>&nbsp;</i></span></button>
                 </div>
             </section>
         </main>
@@ -179,15 +197,15 @@
         <div id="guru">
             <section>
                 <p>Software Failure, Press left mouse button to continue.</p>
-                <p>Guru Meditation #B00B1E55, <span></span></p>
+                <p>Guru Meditation #80081E55, <span></span></p>
             </section>
         </div>
         <div id="window-template" class="window shell" style="display: none">
             <div class="window-title">
-                <button class="window-close">&nbsp;</button>
+                <button class="button window-close">&nbsp;</button>
                 <span>System</span>
-                <button class="window-max">&nbsp;</button>
-                <button class="window-index">&nbsp;</button>
+                <button class="button window-max">&nbsp;</button>
+                <button class="button window-index">&nbsp;</button>
             </div>
             <section>
                 <div class="window-body">
@@ -197,16 +215,16 @@
                     <div class="window-footer">
                         <div class="window-horz-scroll">
                             <div class="scroll-bar"></div>
-                            <button class="scroll-bar-left"><label><span>&nbsp;</span></label></button>
-                            <button class="scroll-bar-right"><label><span>&nbsp;</span></label></button>
+                            <button class="button scroll-bar-left"><label><span>&nbsp;</span></label></button>
+                            <button class="button scroll-bar-right"><label><span>&nbsp;</span></label></button>
                         </div>                            
                     </div>
                 </div>
                 <div class="window-vert-scroll">
                     <div class="scroll-bar"></div>
-                    <button class="scroll-bar-up"><span><i>&nbsp;</i></span></button>
-                    <button class="scroll-bar-down"><span><i>&nbsp;</i></span></button>
-                    <button class="window-scroll-resize"><label><span>&nbsp;</span></label></button>
+                    <button class="button scroll-bar-up"><span><i>&nbsp;</i></span></button>
+                    <button class="button scroll-bar-down"><span><i>&nbsp;</i></span></button>
+                    <button class="button window-scroll-resize"><label><span>&nbsp;</span></label></button>
                 </div>
             </section>
         </div>
@@ -214,6 +232,7 @@
     <script type="text/javascript">
         var windows = [
             "workbench",
+            "window-contact",
             "window-system"
         ];
         var theme = "<?= $DUMBDOG->site->theme_folder; ?>";
@@ -255,12 +274,12 @@
                         top: $(this).parent().parent().offset().top
                     });
                     $(this).parent().parent().css({
-                        width: $("main").width(),
-                        height: $("main").height()
+                        width: $("main").width() - 32,
+                        height: $("main").height() - 56
                     });
                     $(this).parent().parent().offset({
-                        left: $("main").offset().left,
-                        top: $("main").offset().top
+                        left: $("main").offset().left + 5,
+                        top: $("main").offset().top + 28
                     });
                 }
             });
@@ -300,6 +319,49 @@
             $(this).hide();
         });
 
+        function triggerApi(url, window = "", button) {
+            var startx = 50;
+            var starty = 50;
+            if (button) {
+                var startx = $(button).position().left;
+                var starty = $(button).position().top;
+            }
+
+            if ($(window).length) {
+                windowToTop($(window));
+                $(window).css({
+                    top: starty,
+                    left: startx
+                });
+                $(window).show();
+            } else {
+                $.getJSON(
+                    url + "?json=true",
+                    function(data) {
+                        $("#window-template .window-title span").html(data.name);
+                        $("#window-template .window-content .window-output").html(data.content);
+                        $("#window-template").attr("data-api", data.url);
+                        $("#window-template").addClass("shell");
+
+                        var window = $("#window-template").clone();
+                        window.attr("id", "window-" + String(data.name).toLowerCase().replace(" ", "-"));
+                        windows.push(window.attr("id"));
+
+                        $("main").append(window);
+                        setBinds();
+                        windowToTop(window);
+
+                        window.css({
+                            top: starty,
+                            left: startx
+                        });
+
+                        window.show();
+                    }
+                );
+            }
+        }
+
         function windowToTop(target) {
             var top_index = (windows.length + 4);
             $(".window").css("z-index", top_index - 1).removeClass("active");
@@ -309,9 +371,9 @@
             target.addClass("active");    
             windows.forEach(function (window) {
                 if (target.attr("id") != window) {
-                    $("#" + window + " .window-scroll-resize i").removeClass("active");
+                    $("#" + window + " .window-scroll-resize span").removeClass("active");
                 } else {
-                    $("#" + target.attr("id") + " .window-scroll-resize i").addClass("active");
+                    $("#" + target.attr("id") + " .window-scroll-resize span").addClass("active");
                 }
             });
         }
@@ -320,45 +382,16 @@
             setBinds();
             windowToTop($("main"));
 
+            <?php
+            if ($window_url) {
+                echo "triggerApi('" . $window_url . "', '" . $window . "');";
+            }
+            ?>
+
             $("button[data-window]").dblclick(function() {
                 $(this).addClass("open");
                 var window = "#" + $(this).data("window");
-                var startx = $(this).position().left;
-                var starty = $(this).position().top;
-
-                if ($(window).length) {
-                    windowToTop($(window));
-                    $(window).css({
-                        top: starty,
-                        left: startx
-                    });
-                    $(window).show();
-                } else {
-                    $.getJSON(
-                        $(this).data("api"),
-                        function(data) {
-                            $("#window-template .window-title span").html(data.name);
-                            $("#window-template .window-content .window-output").html(data.content);
-                            $("#window-template").attr("data-api", data.url);
-                            $("#window-template").addClass("shell");
-
-                            var window = $("#window-template").clone();
-                            window.attr("id", "window-" + String(data.name).toLowerCase().replace(" ", "-"));
-                            windows.push(window.attr("id"));
-
-                            $("main").append(window);
-                            setBinds();
-                            windowToTop(window);
-
-                            window.css({
-                                top: starty,
-                                left: startx
-                            });
-
-                            window.show();
-                        }
-                    );
-                }
+                triggerApi($(this).data("api"), window, this);
             });
 
             $("#btn-contact-send").click(function() {
@@ -379,12 +412,12 @@
                 $.ajax(
                     {
                         method: "POST",
-                        url :$(this).data("api"),
+                        url: $(this).data("api")+"?json=true",
                         data: {
-                        name: $("#form-contact input[name=name]").val(),
-                        email: $("#form-contact input[name=email]").val(),
-                        message: $("#form-contact text[name=message]").val(),
-                        captcha: $("#form-contact input[name=captcha]").val()
+                            name: $("#form-contact input[name=name]").val(),
+                            email: $("#form-contact input[name=email]").val(),
+                            message: $("#form-contact text[name=message]").val(),
+                            captcha: $("#form-contact input[name=captcha]").val()
                         }
                     }
                 ).done(function(data) {
