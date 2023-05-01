@@ -70,7 +70,7 @@ switch ($window_url) {
                                                 <?php
                                                 foreach ($DUMBDOG->menu->header as $item) {
                                                     ?>
-                                                    <button class="button" data-api="<?= $item->url; ?>" data-window="window-<?= str_replace(" ", "-", $item->name); ?>">
+                                                    <button class="button" data-api="<?= $item->url; ?>" data-window="window-<?= strtolower(str_replace(" ", "-", $item->name)); ?>">
                                                         <label><span>&nbsp;</span></label>
                                                         <strong><?= ucwords($item->name); ?></strong>
                                                     </button>
@@ -211,7 +211,6 @@ switch ($window_url) {
                 } else {
                     $(this).parent().parent().hide();
                 }
-                console.log(windows);
                 windowToTop($("main"));
                 memory("increase");
             });
@@ -290,7 +289,7 @@ switch ($window_url) {
             $(this).hide();
         });
 
-        function triggerApi(url, window = "", button) {
+        function triggerApi(url, window = "", button = null) {
             var startx = 50;
             var starty = 50;
             if (button) {
@@ -309,7 +308,7 @@ switch ($window_url) {
                 $(window).show();
             } else {
                 if (!url.includes("?html=true")) {
-                    url + "?json=true";
+                    url += "?json=true";
                 }
 
                 $.getJSON(
