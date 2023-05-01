@@ -197,6 +197,7 @@ switch ($window_url) {
         }
             
         function setBinds() {
+            $(".window-close").unbind("click");
             $(".window-close").bind("click", function() {
                 $("button[data-api='" + $(this).parent().parent().data("api") + "'").removeClass("open");
                 var id = $(this).parent().parent().attr("id");
@@ -214,11 +215,13 @@ switch ($window_url) {
                 windowToTop($("main"));
                 memory("increase");
             });
+            $(".window-index").unbind("click");
             $(".window-index").bind("click", function () {
                 windowToTop($(this).parent().parent());
             });
+            $(".window-max").unbind("click");
             $(".window-max").bind("click", function () {
-                if ($(this).parent().parent().data("width")) {
+                if ($(this).parent().parent().data("width") != null) {
                     $(this).parent().parent().css({
                         width: $(this).parent().parent().data("width"),
                         height: $(this).parent().parent().data("height"),
@@ -261,6 +264,7 @@ switch ($window_url) {
             $(".popup").draggable({
                 handle: ".window-title"
             });
+            $(".scroll-bar-down").unbind("mousedown");
             $(".scroll-bar-down").bind("mousedown", function () {
                 var window = "#" + $(this).parent().parent().parent().attr("id");
                 scroll = setInterval(() => {
@@ -269,6 +273,7 @@ switch ($window_url) {
                     });
                 }, 100);
             });
+            $(".scroll-bar-up").unbind("mousedown");
             $(".scroll-bar-up").bind("mousedown", function () {
                 var window = "#" + $(this).parent().parent().parent().attr("id");
                 scroll = setInterval(() => {
@@ -277,6 +282,7 @@ switch ($window_url) {
                     });
                 }, 100);
             });
+            $(".scroll-bar-down, .scroll-bar-up").unbind("mouseup");
             $(".scroll-bar-down, .scroll-bar-up").bind("mouseup", () => {
                 clearInterval(scroll);
             });
