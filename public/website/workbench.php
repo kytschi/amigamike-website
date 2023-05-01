@@ -117,7 +117,7 @@ switch ($window_url) {
         <div id="popup" class="popup active">
             <div class="window-title">
                 <span>System</span>
-                <button class="window-index">&nbsp;</button>
+                <button class="button window-index">&nbsp;</button>
             </div>
             <section>
                 <div class="window-body">
@@ -422,9 +422,7 @@ switch ($window_url) {
                 $(this).addClass("open");
                 var window = "#" + $(this).data("window");
                 triggerApi($(this).data("api"), window, this);
-            });
-
-            
+            });            
         });
     </script>
 </html>

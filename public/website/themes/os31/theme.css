@@ -27,7 +27,6 @@ body {
     background-color: #aaaaaa;
 }
 .button {
-    display: block;
     font-family: "text", Helvetica, sans-serif;
     background: none;
     cursor: url("cursor.png"), pointer !important;
