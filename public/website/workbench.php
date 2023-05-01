@@ -128,11 +128,11 @@ switch ($window_url) {
                                 <section>
                                     <div class="window-body">
                                         <div class="window-content">
-                                            <div class="window-output">
+                                            <div class="window-output folder">
                                                 <?php
                                                 foreach ($DUMBDOG->menu->header as $item) {
                                                     ?>
-                                                    <button class="button folder" data-api="<?= $item->url; ?>" data-window="window-<?= str_replace(" ", "-", $item->name); ?>">
+                                                    <button class="button" data-api="<?= $item->url; ?>" data-window="window-<?= str_replace(" ", "-", $item->name); ?>">
                                                         <label><span>&nbsp;</span></label>
                                                         <strong><?= ucwords($item->name); ?></strong>
                                                     </button>
@@ -227,6 +227,11 @@ switch ($window_url) {
                     <button class="button window-scroll-resize"><label><span>&nbsp;</span></label></button>
                 </div>
             </section>
+        </div>
+        <div id="kickstart">
+            <audio id="audio" autoplay>
+                <source src="<?= $DUMBDOG->site->theme_folder; ?>/loading.mp3" type="audio/mpeg">
+            </audio> 
         </div>
     </body>
     <script type="text/javascript">
@@ -379,15 +384,20 @@ switch ($window_url) {
         }
 
         $(function() {
-            setBinds();
-            windowToTop($("main"));
-
-            <?php
-            if ($window_url) {
-                echo "triggerApi('" . $window_url . "', '" . $window . "');";
-            }
-            ?>
-
+            var timeout = setTimeout(() => {
+                $("#audio")[0].pause();
+                $("#kickstart").hide();
+                $("header").show();
+                setBinds();
+                <?php
+                if ($window_url) {
+                    echo "triggerApi('" . $window_url . "', '" . $window . "');";
+                } else {
+                    echo "windowToTop($('main'));";
+                }
+                ?>
+            }, 8000);
+            
             $("button[data-window]").dblclick(function() {
                 $(this).addClass("open");
                 var window = "#" + $(this).data("window");
