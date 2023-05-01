@@ -135,7 +135,7 @@ header {
     width: 100%;
     height: 20px;
     background-color: #fff;
-    z-index: 1500;
+    z-index: 600;
     display: none;
 }
 header h1, header span {

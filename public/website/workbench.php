@@ -39,7 +39,7 @@ switch ($window_url) {
                     <div class="window-content">
                         <div class="window-output">
                             <div id="buttons">
-                                <button id="btn-contact" class="button floppy" data-window="window-contact" data-api="contact">
+                                <button id="btn-contact" class="button floppy" data-window="window-contact" data-api="/contact?html=true">
                                     <label><span>&nbsp;</span></label>
                                     <strong>Contact</strong>
                                 </button>
@@ -55,68 +55,6 @@ switch ($window_url) {
                                     <label><span>&nbsp;</span></label>
                                     <strong>System</strong>
                                 </button>
-                            </div>
-                            <div
-                                id="window-contact" 
-                                class="window shell" 
-                                data-api="contact" 
-                                style="display: none; width: 500px;height: 520px;">
-                                <div class="window-title">
-                                    <button class="button window-close">&nbsp;</button>
-                                    <span>Contact</span>
-                                    <button class="button window-max">&nbsp;</button>
-                                    <button class="button window-index">&nbsp;</button>
-                                </div>
-                                <section>
-                                    <div class="window-body">
-                                        <div class="window-content">
-                                            <div class="window-output">
-                                                <div id="form-contact" style="float:left;width:calc(100% - 20px);overflow:hidden;padding:5px 5px;">
-                                                    <div class="form-input">
-                                                        <label>Your name<span class="required">*</span></label>
-                                                        <input type="text" name="name" required="required"/>
-                                                    </div>
-                                                    <div class="form-input">
-                                                        <label>Your email<span class="required">*</span></label>
-                                                        <input type="email" name="email" required="required"/>
-                                                    </div>
-                                                    <div class="form-input">
-                                                        <label>Your message<span class="required">*</span></label>
-                                                        <textarea rows="4" name="message" required="required"></textarea>
-                                                    </div>
-                                                    <div class="form-input">
-                                                        <label>Captcha<span class="required">*</span></label>
-                                                        <?= $DUMBDOG->captcha->draw(); ?>
-                                                    </div>
-                                                    <p>Required fields<span class="required">*</span></p>
-                                                    <div class="form-input">
-                                                        <button
-                                                            id="btn-contact-send"
-                                                            type="button"
-                                                            name="send"
-                                                            class="button text-button"
-                                                            data-api="/contact">
-                                                            <label><span><i>Send</i></span></label>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="window-footer">
-                                            <div class="window-horz-scroll">
-                                                <div class="scroll-bar"></div>
-                                                <button class="button scroll-bar-left"><label><span>&nbsp;</span></label></button>
-                                                <button class="button scroll-bar-right"><label><span>&nbsp;</span></label></button>
-                                            </div>                            
-                                        </div>
-                                    </div>
-                                    <div class="window-vert-scroll">
-                                        <div class="scroll-bar"></div>
-                                        <button class="button scroll-bar-up"><span><i>&nbsp;</i></span></button>
-                                        <button class="button scroll-bar-down"><span><i>&nbsp;</i></span></button>
-                                        <button class="button window-scroll-resize"><label><span>&nbsp;</span></label></button>
-                                    </div>
-                                </section>
                             </div>
                             <div id="window-system" class="window" data-api="system">
                                 <div class="window-title">
@@ -188,7 +126,7 @@ switch ($window_url) {
                     </div>
                 </div>
                 <div class="window-footer">
-                    <button type="button" class="text-button">
+                    <button type="button" class="button text-button">
                         <label><span><i>Ok</i></span></label>
                     </button>
                 </div>
@@ -237,7 +175,6 @@ switch ($window_url) {
     <script type="text/javascript">
         var windows = [
             "workbench",
-            "window-contact",
             "window-system"
         ];
         var theme = "<?= $DUMBDOG->site->theme_folder; ?>";
@@ -248,11 +185,11 @@ switch ($window_url) {
             var otherram = parseInt($("#otherram strong").html().replace(/,/g, ""));
 
             if (action == "decrease") {
-                chipram -= Math.floor(Math.random() * 100) + 1;
-                otherram -= Math.floor(Math.random() * 100) + 1;
+                chipram -= Math.floor(Math.random() * 10000) + 100;
+                otherram -= Math.floor(Math.random() * 10000) + 100;
             } else {
-                chipram += Math.floor(Math.random() * 100) + 1;
-                otherram += Math.floor(Math.random() * 100) + 1;
+                chipram += Math.floor(Math.random() * 10000) + 100;
+                otherram += Math.floor(Math.random() * 10000) + 100;
             }
 
             $("#chipram strong").html(new Intl.NumberFormat('en-US').format(chipram));
@@ -261,8 +198,20 @@ switch ($window_url) {
             
         function setBinds() {
             $(".window-close").bind("click", function() {
-                $(this).parent().parent().hide();
                 $("button[data-api='" + $(this).parent().parent().data("api") + "'").removeClass("open");
+                var id = $(this).parent().parent().attr("id");
+                windows.forEach(function (window, key) {
+                    if (id == window) {
+                        windows.splice(key, 1);
+                        return;
+                    }
+                });
+                if ($(this).parent().parent().data("destroy") == true) {
+                    $(this).parent().parent().remove();
+                } else {
+                    $(this).parent().parent().hide();
+                }
+                console.log(windows);
                 windowToTop($("main"));
                 memory("increase");
             });
@@ -359,15 +308,24 @@ switch ($window_url) {
                 });
                 $(window).show();
             } else {
+                if (!url.includes("?html=true")) {
+                    url + "?json=true";
+                }
+
                 $.getJSON(
-                    url + "?json=true",
+                    url,
                     function(data) {
                         $("#window-template .window-title span").html(data.name);
                         $("#window-template .window-content .window-output").html(data.content);
                         $("#window-template").attr("data-api", data.url);
+                        $("#window-template").attr("data-destroy", data.destroy);
                         $("#window-template").addClass("shell");
+                        if (typeof(data.height) != "undefind") {
+                            $("#window-template").css("height", data.height + "px");
+                        }
 
                         var window = $("#window-template").clone();
+                        $("#window-template .window-content .window-output").html("");
                         window.attr("id", "window-" + String(data.name).toLowerCase().replace(" ", "-"));
                         windows.push(window.attr("id"));
 
@@ -402,6 +360,49 @@ switch ($window_url) {
             });
         }
 
+        function sendMessage() {
+            var valid = true;
+            $("#form-contact input[required], #form-contact textarea[required]").each(function(key, item) {
+                if (!item.value) {
+                    valid = false;
+                    return;
+                }
+            });
+
+            if (!valid) {
+                $("#guru span").html("Missing required fields");
+                $("#guru").show();
+                return;
+            }
+
+            $.ajax(
+                {
+                    method: "POST",
+                    url: "/contact?json=true",
+                    data: {
+                        name: $("#form-contact input[name=name]").val(),
+                        email: $("#form-contact input[name=email]").val(),
+                        message: $("#form-contact textarea[name=message]").val(),
+                        dd_captcha: $("#form-contact input[name=dd_captcha]").val(),
+                        _DDCAPTCHA: $("#form-contact input[name=_DDCAPTCHA]").val()
+                    }
+                }
+            ).done(function(data) {
+                    if (data.error) {
+                        $("#guru span").html(data.message);
+                        $("#guru").show();
+                        return;
+                    }
+                    $("#window-contact .window-close").click();
+                    $("#popup .window-title span").html("Thank you");
+                    $("#popup .window-output").html(data.message);
+                    $("#popup").show();
+            }).fail(function(data) {
+                $("#guru span").html("An error has an occurred");
+                $("#guru").show();
+            });
+        }
+
         $(function() {
             var timeout = setTimeout(() => {
                 $("#audio")[0].pause();
@@ -423,47 +424,7 @@ switch ($window_url) {
                 triggerApi($(this).data("api"), window, this);
             });
 
-            $("#btn-contact-send").click(function() {
-                var valid = true;
-                $("#form-contact input[required], #form-contact textarea[required]").each(function(key, item) {
-                    if (!item.value) {
-                        valid = false;
-                        return;
-                    }
-                });
-
-                if (!valid) {
-                    $("#guru span").html("Missing required fields");
-                    $("#guru").show();
-                    return;
-                }
-
-                $.ajax(
-                    {
-                        method: "POST",
-                        url: $(this).data("api")+"?json=true",
-                        data: {
-                            name: $("#form-contact input[name=name]").val(),
-                            email: $("#form-contact input[name=email]").val(),
-                            message: $("#form-contact text[name=message]").val(),
-                            captcha: $("#form-contact input[name=captcha]").val()
-                        }
-                    }
-                ).done(function(data) {
-                        if (data.error) {
-                            $("#guru span").html(data.message);
-                            $("#guru").show();
-                            return;
-                        }
-                        
-                        $("#popup .window-title span").html("Thank you");
-                        $("#popup .window-output").html(data.message);
-                        $("#popup").show();
-                }).fail(function(data) {
-                    $("#guru span").html("An error has an occurred");
-                    $("#guru").show();
-                });
-            });
+            
         });
     </script>
 </html>

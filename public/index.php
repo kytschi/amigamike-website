@@ -33,6 +33,9 @@ try {
         session_name("dd");
         session_start();
     }
+
+    require_once "../vendor/autoload.php";
+
     new DumbDog("../dumbdog.json");
 } catch (\Exception $err) {
     (new Exception($err->getMessage()))->fatal();

@@ -4,4 +4,5 @@ if (empty($_GET['json'])) {
     die();
 }
 header("Content-Type: application/json; charset=utf-8");
+$DUMBDOG->page->destory = 'true';
 echo json_encode($DUMBDOG->page);
