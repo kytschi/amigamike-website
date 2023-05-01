@@ -242,12 +242,29 @@ switch ($window_url) {
         ];
         var theme = "<?= $DUMBDOG->site->theme_folder; ?>";
         var scroll = null;
+
+        function memory(action = "decrease") {
+            var chipram = parseInt($("#chipram strong").html().replace(/,/g, ""));
+            var otherram = parseInt($("#otherram strong").html().replace(/,/g, ""));
+
+            if (action == "decrease") {
+                chipram -= Math.floor(Math.random() * 100) + 1;
+                otherram -= Math.floor(Math.random() * 100) + 1;
+            } else {
+                chipram += Math.floor(Math.random() * 100) + 1;
+                otherram += Math.floor(Math.random() * 100) + 1;
+            }
+
+            $("#chipram strong").html(new Intl.NumberFormat('en-US').format(chipram));
+            $("#otherram strong").html(new Intl.NumberFormat('en-US').format(otherram));
+        }
             
         function setBinds() {
             $(".window-close").bind("click", function() {
                 $(this).parent().parent().hide();
                 $("button[data-api='" + $(this).parent().parent().data("api") + "'").removeClass("open");
                 windowToTop($("main"));
+                memory("increase");
             });
             $(".window-index").bind("click", function () {
                 windowToTop($(this).parent().parent());
@@ -332,6 +349,8 @@ switch ($window_url) {
                 var starty = $(button).position().top;
             }
 
+            memory();
+
             if ($(window).length) {
                 windowToTop($(window));
                 $(window).css({
@@ -396,7 +415,7 @@ switch ($window_url) {
                     echo "windowToTop($('main'));";
                 }
                 ?>
-            }, 8000);
+            }, 500);
             
             $("button[data-window]").dblclick(function() {
                 $(this).addClass("open");
