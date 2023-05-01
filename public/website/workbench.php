@@ -415,7 +415,7 @@ switch ($window_url) {
                     echo "windowToTop($('main'));";
                 }
                 ?>
-            }, 500);
+            }, <?= $_SERVER['SERVER_NAME'] == 'amigamike.kytschi.ninja' ? 500 : 9000; ?>);
             
             $("button[data-window]").dblclick(function() {
                 $(this).addClass("open");
